@@ -1,0 +1,9 @@
+
+SELECT
+    YEAR,
+    STATE,
+    COUNT(*) AS row_count
+FROM ma_geo
+GROUP BY YEAR, STATE
+HAVING COUNT(*) > 1
+ORDER BY YEAR, STATE
