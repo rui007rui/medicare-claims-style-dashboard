@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,7 +9,11 @@ st.set_page_config(
 )
 
 st.title("Medicare Advantage Geographic Variation Dashboard")
-st.write("This dashboard uses CMS public Medicare Advantage Geographic Variation data to explore enrollment, demographics, and utilization by state.")
+
+st.write(
+    "This dashboard uses CMS public Medicare Advantage Geographic Variation data "
+    "to explore enrollment, demographics, and utilization by state."
+)
 
 # File paths
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -21,7 +24,11 @@ df = pd.read_csv(DATA_PATH)
 
 # Sidebar filters
 years = sorted(df["YEAR"].dropna().unique())
-selected_year = st.sidebar.selectbox("Select year", years, index=len(years)-1)
+selected_year = st.sidebar.selectbox(
+    "Select year",
+    years,
+    index=len(years) - 1
+)
 
 df_year = df[df["YEAR"] == selected_year].copy()
 
@@ -47,12 +54,7 @@ st.divider()
 # Top 10 MA enrollment
 st.subheader("Top 10 States by Medicare Advantage Beneficiaries")
 
-state_data = df_year[
-    df_year["STATE"].notna()
-    & (df_year["STATE"].astype(str).str.strip().str.upper() != "NATIONAL")
-].copy()
-
-top10_benes = state_data.sort_values(
+top10_benes = df_year.sort_values(
     "BENES_MA_CNT",
     ascending=False
 ).head(10)
@@ -67,15 +69,17 @@ plt.tight_layout()
 st.pyplot(fig1)
 
 st.dataframe(
-    top10_benes[[
-        "STATE",
-        "BENES_MA_CNT",
-        "BENE_AVG_AGE",
-        "BENE_DUAL_PCT",
-        "ER_VISITS_PER_1000_BENES",
-        "OP_VISITS_PER_1000_BENES"
-    ]],
-    use_container_width=True
+    top10_benes[
+        [
+            "STATE",
+            "BENES_MA_CNT",
+            "BENE_AVG_AGE",
+            "BENE_DUAL_PCT",
+            "ER_VISITS_PER_1000_BENES",
+            "OP_VISITS_PER_1000_BENES",
+        ]
+    ],
+    use_container_width=True,
 )
 
 st.divider()
@@ -83,7 +87,10 @@ st.divider()
 # Top 10 ER visits
 st.subheader("Top 10 States by ER Visits per 1,000 MA Beneficiaries")
 
-top10_er = df_year.sort_values("ER_VISITS_PER_1000_BENES", ascending=False).head(10)
+top10_er = df_year.sort_values(
+    "ER_VISITS_PER_1000_BENES",
+    ascending=False
+).head(10)
 
 fig2, ax2 = plt.subplots(figsize=(10, 5))
 ax2.bar(top10_er["STATE"], top10_er["ER_VISITS_PER_1000_BENES"])
@@ -95,13 +102,15 @@ plt.tight_layout()
 st.pyplot(fig2)
 
 st.dataframe(
-    top10_er[[
-        "STATE",
-        "BENES_MA_CNT",
-        "ER_VISITS_PER_1000_BENES",
-        "OP_VISITS_PER_1000_BENES"
-    ]],
-    use_container_width=True
+    top10_er[
+        [
+            "STATE",
+            "BENES_MA_CNT",
+            "ER_VISITS_PER_1000_BENES",
+            "OP_VISITS_PER_1000_BENES",
+        ]
+    ],
+    use_container_width=True,
 )
 
 st.divider()
@@ -112,9 +121,10 @@ st.subheader("State-Level Data")
 st.dataframe(df_year, use_container_width=True)
 
 csv = df_year.to_csv(index=False).encode("utf-8")
+
 st.download_button(
     label="Download filtered data as CSV",
     data=csv,
     file_name=f"ma_geo_state_{selected_year}.csv",
-    mime="text/csv"
+    mime="text/csv",
 )
