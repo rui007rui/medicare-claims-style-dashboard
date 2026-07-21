@@ -1,6 +1,29 @@
+# Python cache files
 __pycache__/
+*.pyc
+
+# Jupyter / Colab checkpoints
 .ipynb_checkpoints/
-*.zip
-*.log
+
+# Raw source files
+data_raw/
+
+# Notebooks
+notebooks/
+
+# Google Drive shortcut/doc files
+*.gdoc
+
+# Token or secret files
+saved_token.gdoc
+*.token
 .env
+
+# System files
 .DS_Store
+
+# Logs
+*.log
+
+# Large compressed files
+*.zip
