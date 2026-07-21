@@ -6,6 +6,14 @@ The goal is to show not only dashboard development, but also the full analytics 
 
 ---
 
+## Live Dashboard Web App
+
+The interactive Streamlit dashboard is deployed here:
+
+https://medicare-ma-dashboard-rui.streamlit.app
+
+---
+
 ## Project Purpose
 
 This project demonstrates skills relevant to Medicare claims-style analytics work, including:
