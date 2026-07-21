@@ -43,7 +43,7 @@ num_states = df_year["STATE"].nunique()
 
 col1, col2, col3, col4, col5 = st.columns(5)
 
-col1.metric("MA Beneficiaries", f"{total_ma_benes:,.0f}")
+col1.metric("MA Benes", f"{total_ma_benes / 1_000_000:.1f}M")
 col2.metric("States", f"{num_states}")
 col3.metric("Average Age", f"{avg_age:.1f}")
 col4.metric("ER Visits / 1,000", f"{avg_er_visits:.1f}")
