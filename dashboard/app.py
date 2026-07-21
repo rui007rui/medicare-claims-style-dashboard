@@ -32,6 +32,9 @@ selected_year = st.sidebar.selectbox(
 
 df_year = df[df["YEAR"] == selected_year].copy()
 
+# Exclude national-level records from state-level dashboard views
+df_year = df_year[~df_year["STATE"].isin(["National", "US"])].copy()
+
 st.subheader(f"Overview - {selected_year}")
 
 # KPI cards
